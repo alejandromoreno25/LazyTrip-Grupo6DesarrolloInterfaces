@@ -8,7 +8,7 @@
 | Alejandro Moreno Luna | 100% |
 | Antonio Muñoz Herrera | 100% |
 | Joaquin Torrubia Oria | 100% |
-| Víctor Pérez Martínez | 60% |
+| Víctor Pérez Martínez | 75% |
 | Lucas Moreno | 80% |
 
 # Memoria Técnica y Documentación del Sprint 1 
