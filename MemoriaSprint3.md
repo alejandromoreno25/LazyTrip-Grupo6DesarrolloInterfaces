@@ -172,3 +172,32 @@ Los objetivos concretos de verificación se agrupan en cuatro pilares funcionale
 | **CB-04** | Selección rápida de minutos (de 5 en 5) | En modo Minutos, clicar sobre las marcas principales (`1`→`05`, `3`→`15`, `6`→`30`). | El componente calcula el múltiplo ($\text{posición} \times 5$), actualiza la cabecera a `:05`, `:15` o `:30` y guarda el valor. |
 | **CB-05** | Selección de minuto intermedio por arrastre | En modo Minutos, arrastrar la aguja manualmente hasta un punto intermedio (ej. minuto `18`). | La aguja sigue el ángulo del ratón, la cabecera muestra `:18` y la variable interna almacena el minuto exacto (`18`). |
 | **CB-06** | Volcado final de hora completa | Confirmar selección de hora (`14`) y minutos (`18`). | El campo principal del componente muestra `"14:18"` para llegada/salida del viaje. |
+
+## 3.2. Ejecución de Pruebas Unitarias y de Integración (Tarea #41)
+
+Para automatizar la ejecución en **NetBeans** (entorno Ant), se integró el motor `junit-platform-console-standalone-1.10.2.jar` en el *Test Classpath* del proyecto y se configuró el objetivo `-do-test-run` en `build.xml` para lanzar `ConsoleLauncher` y generar los informes XML en `build/test/results/` [2].
+
+La batería funcional se implementó en el paquete `main.test` mediante las suites `CalendarioEstadoTest` y `RelojEstadoTest`. En ellas se combinan aserciones de **JUnit 5** con el control de eventos nativos de `java.awt.Robot`, permitiendo calcular las coordenadas exactas en pantalla de cada componente, desplazar el cursor automáticamente y ejecutar clics o arrastres reales sin intervención manual [3]:
+
+### Matriz de pruebas funcionales de `CampoCalendario` (`CalendarioEstadoTest`)
+
+| ID | Escenario | Acción y Datos de Entrada | Resultado Esperado y Verificado |
+| :--- | :--- | :--- | :--- |
+| **CA-01** | Inicialización por defecto | Instanciar `CampoCalendario` sin interacción previa. | `getFecha()` devuelve `null`, `getTextoMostrado()` está vacío (`""`) y el `JCalendar` permanece oculto. |
+| **CA-02** | Apertura del calendario | `Robot` desplaza el cursor al icono derecho y ejecuta clic izquierdo (`BUTTON1_DOWN_MASK`). | Se despliega el `JPopupMenu` y `JCalendar.isShowing()` pasa a `true`. |
+| **CA-03** | Asignación y formateo | Asignar la fecha `2026-11-25` mediante `setFecha()`. | El estado interno almacena `LocalDate.of(2026, 11, 25)` y la barra muestra `"25/11/2026"`. |
+| **CA-04** | Limpieza de estado | Invocar `setFecha(null)` tras haber seleccionado una fecha previa. | El atributo interno vuelve a `null` y el campo de texto queda vacío (`""`). |
+
+### Matriz de pruebas funcionales de `CampoReloj` (`RelojEstadoTest`)
+
+| ID | Escenario | Acción y Datos de Entrada | Resultado Esperado y Verificado |
+| :--- | :--- | :--- | :--- |
+| **CB-01** | Inicialización por defecto | Instanciar `CampoReloj` sin interacción previa. | `getHora()` devuelve `null`, `getTextoMostrado()` está vacío (`""`) y `TimePicker.isShowing()` es `false`. |
+| **CB-02** | Apertura del reloj analógico | `Robot` pulsa sobre el botón vectorial derecho del reloj. | Se despliega el *popup* emergente mostrando el selector analógico `TimePicker` en modo 24 horas. |
+| **CB-03** | Selección en múltiplos de 5 | Establecer horas con minutos discretos (`14:05`, `14:15`, `14:30`). | El componente sincroniza el `TimePicker` y formatea la salida en `"14:05"`, `"14:15"` y `"14:30"`. |
+| **CB-04** | Arrastre en esfera y volcado | `Robot` abre el selector, realiza un arrastre sobre la esfera y confirma minuto exacto (`14:18`). | La aguja responde al desplazamiento, `getHora().getMinute()` registra `18` y el campo muestra `"14:18"`. |
+
+La ejecución completa de ambas suites concluyó con **8 de 8 pruebas superadas** (`BUILD SUCCESSFUL`), validando tanto la lógica interna como el comportamiento gráfico en pantalla.
+
+<img width="712" height="640" alt="image" src="https://github.com/user-attachments/assets/d72679bb-1e35-4bf2-a76b-63e7ec16972a" />
+
