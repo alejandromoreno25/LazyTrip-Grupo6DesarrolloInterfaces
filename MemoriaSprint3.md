@@ -197,6 +197,13 @@ La batería funcional se implementó en el paquete `main.test` mediante las suit
 | **CB-03** | Selección en múltiplos de 5 | Establecer horas con minutos discretos (`14:05`, `14:15`, `14:30`). | El componente sincroniza el `TimePicker` y formatea la salida en `"14:05"`, `"14:15"` y `"14:30"`. |
 | **CB-04** | Arrastre en esfera y volcado | `Robot` abre el selector, realiza un arrastre sobre la esfera y confirma minuto exacto (`14:18`). | La aguja responde al desplazamiento, `getHora().getMinute()` registra `18` y el campo muestra `"14:18"`. |
 
+## 3.4. Configuración del Entorno para Exportación a `.jar` y Javadoc (Tarea #43)
+
+Finalmente, se dejó configurado el entorno de desarrollo en **NetBeans** y el script de construcción **Ant** para facilitar la distribución de los componentes como librería independiente y su documentación técnica asociada [4], [5]:
+
+* **Empaquetado en archivo `.jar`:** En las propiedades del proyecto (*Build → Packaging*), se activaron las opciones *Build JAR after Compiling* y *Copy Dependent Libraries*. Al ejecutar *Clean and Build* (`clean jar`), Ant genera automáticamente el artefacto `dist/PruebaCOmponentes.jar` junto con las dependencias necesarias (`jcalendar-1.4.jar`, `swing-time-picker.jar` y `TimingFramework-0.55.jar`) en `dist/lib/`, permitiendo reutilizar los componentes en la aplicación principal de **LazyTrip** [5].
+* **Generación de documentación técnica (Javadoc):** En *Build → Documenting*, se habilitaron las etiquetas `@author` y `@version`, y se configuraron los parámetros adicionales `-encoding UTF-8 -charset UTF-8 -docencoding UTF-8` para garantizar la correcta codificación de caracteres en español. Mediante la acción *Generate Javadoc*, el entorno genera en `dist/javadoc/` la documentación HTML completa de todas las clases, constructores y métodos públicos del paquete `main` [4].
+
 La ejecución completa de ambas suites concluyó con **8 de 8 pruebas superadas** (`BUILD SUCCESSFUL`), validando tanto la lógica interna como el comportamiento gráfico en pantalla.
 
 <img width="712" height="640" alt="image" src="https://github.com/user-attachments/assets/d72679bb-1e35-4bf2-a76b-63e7ec16972a" />
