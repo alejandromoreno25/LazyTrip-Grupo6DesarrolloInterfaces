@@ -25,20 +25,306 @@ public class VistaInicio extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        pnlRoot = new javax.swing.JPanel();
+        pnlHeader = new javax.swing.JPanel();
+        pnlLogo = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
+        lblNombreApp = new javax.swing.JLabel();
+        pnlUsuario = new javax.swing.JPanel();
+        btnIniciarSesion = new javax.swing.JButton();
+        pnlMain = new javax.swing.JPanel();
+        pnlContenido = new javax.swing.JPanel();
+        lblEslogan = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        lblSubtitulo = new javax.swing.JLabel();
+        pnlTarjetas = new javax.swing.JPanel();
+        pnlTarjetaNuevoViaje = new javax.swing.JPanel();
+        pnlEspacioNuevoViaje = new javax.swing.JPanel();
+        pnlTextoNuevoViaje = new javax.swing.JPanel();
+        lblIconoNuevoViaje = new javax.swing.JLabel();
+        lblEyebrowNuevoViaje = new javax.swing.JLabel();
+        lblTituloNuevoViaje = new javax.swing.JLabel();
+        lblDescripcionNuevoViaje = new javax.swing.JLabel();
+        btnEmpezar = new javax.swing.JButton();
+        pnlTarjetaMisViajes = new javax.swing.JPanel();
+        pnlEspacioMisViajes = new javax.swing.JPanel();
+        pnlTextoMisViajes = new javax.swing.JPanel();
+        lblIconoMisViajes = new javax.swing.JLabel();
+        lblEyebrowMisViajes = new javax.swing.JLabel();
+        lblTituloMisViajes = new javax.swing.JLabel();
+        lblDescripcionMisViajes = new javax.swing.JLabel();
+        btnTarjetaIniciarSesion = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(247, 250, 250));
+        setName("frmInicio"); // NOI18N
+        setLayout(new java.awt.BorderLayout());
+
+        pnlRoot.setBackground(new java.awt.Color(247, 250, 250));
+        pnlRoot.setPreferredSize(new java.awt.Dimension(1390, 847));
+        pnlRoot.setLayout(new java.awt.BorderLayout());
+
+        pnlHeader.setBackground(new java.awt.Color(255, 255, 255));
+        pnlHeader.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        pnlHeader.setPreferredSize(new java.awt.Dimension(1390, 63));
+        pnlHeader.setLayout(new java.awt.BorderLayout());
+
+        pnlLogo.setOpaque(false);
+        pnlLogo.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        lblLogo.setFont(new java.awt.Font("Segoe UI", 0, 26)); // NOI18N
+        lblLogo.setForeground(new java.awt.Color(36, 180, 165));
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogo.setText("✈");
+        lblLogo.setPreferredSize(new java.awt.Dimension(40, 40));
+        pnlLogo.add(lblLogo);
+
+        lblNombreApp.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNombreApp.setText("<html><span style='color:#245670'>Lazy</span><span style='color:#24B4A5'>Trip</span></html>");
+        pnlLogo.add(lblNombreApp);
+
+        pnlHeader.add(pnlLogo, java.awt.BorderLayout.WEST);
+
+        pnlUsuario.setOpaque(false);
+        pnlUsuario.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnIniciarSesion.setForeground(new java.awt.Color(36, 86, 112));
+        btnIniciarSesion.setText("👤  Iniciar sesión");
+        btnIniciarSesion.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        btnIniciarSesion.setContentAreaFilled(false);
+        btnIniciarSesion.setFocusPainted(false);
+        btnIniciarSesion.setPreferredSize(new java.awt.Dimension(134, 40));
+        pnlUsuario.add(btnIniciarSesion);
+
+        pnlHeader.add(pnlUsuario, java.awt.BorderLayout.EAST);
+
+        pnlRoot.add(pnlHeader, java.awt.BorderLayout.NORTH);
+
+        pnlMain.setBackground(new java.awt.Color(247, 250, 250));
+        pnlMain.setLayout(new java.awt.GridBagLayout());
+
+        pnlContenido.setOpaque(false);
+
+        lblEslogan.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblEslogan.setForeground(new java.awt.Color(36, 180, 165));
+        lblEslogan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblEslogan.setText("ORGANIZA MENOS. VIAJA MÁS.");
+        lblEslogan.setAlignmentX(0.5F);
+        lblEslogan.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 6, 0));
+
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(26, 58, 77));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("<html><div style='text-align:center; width:470px'>¿Qué quieres hacer hoy?</div></html>");
+        lblTitulo.setAlignmentX(0.5F);
+
+        lblSubtitulo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblSubtitulo.setForeground(new java.awt.Color(107, 122, 128));
+        lblSubtitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSubtitulo.setText("Crea un viaje desde cero o vuelve a uno de tus planes guardados.");
+        lblSubtitulo.setAlignmentX(0.5F);
+        lblSubtitulo.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 34, 0));
+
+        pnlTarjetas.setMaximumSize(new java.awt.Dimension(904, 274));
+        pnlTarjetas.setMinimumSize(new java.awt.Dimension(904, 274));
+        pnlTarjetas.setOpaque(false);
+        pnlTarjetas.setPreferredSize(new java.awt.Dimension(904, 274));
+
+        pnlTarjetaNuevoViaje.setBackground(new java.awt.Color(40, 96, 127));
+        pnlTarjetaNuevoViaje.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        pnlEspacioNuevoViaje.setOpaque(false);
+
+        pnlTextoNuevoViaje.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 28, 24, 28));
+        pnlTextoNuevoViaje.setOpaque(false);
+        pnlTextoNuevoViaje.setLayout(new javax.swing.BoxLayout(pnlTextoNuevoViaje, javax.swing.BoxLayout.PAGE_AXIS));
+
+        lblIconoNuevoViaje.setBackground(new java.awt.Color(36, 180, 165));
+        lblIconoNuevoViaje.setFont(new java.awt.Font("Segoe UI", 0, 28)); // NOI18N
+        lblIconoNuevoViaje.setForeground(new java.awt.Color(255, 255, 255));
+        lblIconoNuevoViaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIconoNuevoViaje.setText("+");
+        lblIconoNuevoViaje.setMaximumSize(new java.awt.Dimension(48, 48));
+        lblIconoNuevoViaje.setMinimumSize(new java.awt.Dimension(48, 48));
+        lblIconoNuevoViaje.setOpaque(true);
+        lblIconoNuevoViaje.setPreferredSize(new java.awt.Dimension(48, 48));
+        pnlTextoNuevoViaje.add(lblIconoNuevoViaje);
+
+        lblEyebrowNuevoViaje.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblEyebrowNuevoViaje.setForeground(new java.awt.Color(94, 224, 208));
+        lblEyebrowNuevoViaje.setText("EMPIEZA DESDE CERO");
+        lblEyebrowNuevoViaje.setBorder(javax.swing.BorderFactory.createEmptyBorder(12, 0, 2, 0));
+        pnlTextoNuevoViaje.add(lblEyebrowNuevoViaje);
+
+        lblTituloNuevoViaje.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        lblTituloNuevoViaje.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloNuevoViaje.setText("Nuevo viaje");
+        pnlTextoNuevoViaje.add(lblTituloNuevoViaje);
+
+        lblDescripcionNuevoViaje.setForeground(new java.awt.Color(214, 232, 238));
+        lblDescripcionNuevoViaje.setText("<html><div style='width:300px'>Elige cualquier destino, tus fechas y presupuesto. LazyTrip generará las opciones para ti.</div></html>");
+        lblDescripcionNuevoViaje.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 0, 14, 0));
+        pnlTextoNuevoViaje.add(lblDescripcionNuevoViaje);
+
+        btnEmpezar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEmpezar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEmpezar.setText("Empezar  →");
+        btnEmpezar.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        btnEmpezar.setBorderPainted(false);
+        btnEmpezar.setContentAreaFilled(false);
+        btnEmpezar.setFocusPainted(false);
+        btnEmpezar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pnlTextoNuevoViaje.add(btnEmpezar);
+
+        javax.swing.GroupLayout pnlTarjetaNuevoViajeLayout = new javax.swing.GroupLayout(pnlTarjetaNuevoViaje);
+        pnlTarjetaNuevoViaje.setLayout(pnlTarjetaNuevoViajeLayout);
+        pnlTarjetaNuevoViajeLayout.setHorizontalGroup(
+            pnlTarjetaNuevoViajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlEspacioNuevoViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlTextoNuevoViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        pnlTarjetaNuevoViajeLayout.setVerticalGroup(
+            pnlTarjetaNuevoViajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTarjetaNuevoViajeLayout.createSequentialGroup()
+                .addComponent(pnlEspacioNuevoViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(pnlTextoNuevoViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        pnlTarjetaMisViajes.setBackground(new java.awt.Color(255, 255, 255));
+        pnlTarjetaMisViajes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        pnlTarjetaMisViajes.setLayout(new java.awt.BorderLayout());
+
+        pnlEspacioMisViajes.setOpaque(false);
+        pnlTarjetaMisViajes.add(pnlEspacioMisViajes, java.awt.BorderLayout.CENTER);
+
+        pnlTextoMisViajes.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 28, 24, 28));
+        pnlTextoMisViajes.setOpaque(false);
+        pnlTextoMisViajes.setLayout(new javax.swing.BoxLayout(pnlTextoMisViajes, javax.swing.BoxLayout.PAGE_AXIS));
+
+        lblIconoMisViajes.setBackground(new java.awt.Color(213, 242, 238));
+        lblIconoMisViajes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblIconoMisViajes.setForeground(new java.awt.Color(36, 86, 112));
+        lblIconoMisViajes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIconoMisViajes.setText("🔒");
+        lblIconoMisViajes.setMaximumSize(new java.awt.Dimension(48, 48));
+        lblIconoMisViajes.setMinimumSize(new java.awt.Dimension(48, 48));
+        lblIconoMisViajes.setOpaque(true);
+        lblIconoMisViajes.setPreferredSize(new java.awt.Dimension(48, 48));
+        pnlTextoMisViajes.add(lblIconoMisViajes);
+
+        lblEyebrowMisViajes.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblEyebrowMisViajes.setForeground(new java.awt.Color(36, 180, 165));
+        lblEyebrowMisViajes.setText("ÁREA PERSONAL");
+        lblEyebrowMisViajes.setBorder(javax.swing.BorderFactory.createEmptyBorder(12, 0, 2, 0));
+        pnlTextoMisViajes.add(lblEyebrowMisViajes);
+
+        lblTituloMisViajes.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        lblTituloMisViajes.setForeground(new java.awt.Color(26, 58, 77));
+        lblTituloMisViajes.setText("Mis viajes");
+        pnlTextoMisViajes.add(lblTituloMisViajes);
+
+        lblDescripcionMisViajes.setForeground(new java.awt.Color(107, 122, 128));
+        lblDescripcionMisViajes.setText("<html><div style='width:300px'>Inicia sesión para ver tus viajes, itinerarios y bibliotecas de fotos.</div></html>");
+        lblDescripcionMisViajes.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 0, 14, 0));
+        pnlTextoMisViajes.add(lblDescripcionMisViajes);
+
+        btnTarjetaIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnTarjetaIniciarSesion.setForeground(new java.awt.Color(36, 86, 112));
+        btnTarjetaIniciarSesion.setText("Iniciar sesión  →");
+        btnTarjetaIniciarSesion.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        btnTarjetaIniciarSesion.setBorderPainted(false);
+        btnTarjetaIniciarSesion.setContentAreaFilled(false);
+        btnTarjetaIniciarSesion.setFocusPainted(false);
+        btnTarjetaIniciarSesion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        pnlTextoMisViajes.add(btnTarjetaIniciarSesion);
+
+        pnlTarjetaMisViajes.add(pnlTextoMisViajes, java.awt.BorderLayout.SOUTH);
+
+        javax.swing.GroupLayout pnlTarjetasLayout = new javax.swing.GroupLayout(pnlTarjetas);
+        pnlTarjetas.setLayout(pnlTarjetasLayout);
+        pnlTarjetasLayout.setHorizontalGroup(
+            pnlTarjetasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTarjetasLayout.createSequentialGroup()
+                .addComponent(pnlTarjetaNuevoViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlTarjetaMisViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        pnlTarjetasLayout.setVerticalGroup(
+            pnlTarjetasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlTarjetaNuevoViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlTarjetaMisViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        javax.swing.GroupLayout pnlContenidoLayout = new javax.swing.GroupLayout(pnlContenido);
+        pnlContenido.setLayout(pnlContenidoLayout);
+        pnlContenidoLayout.setHorizontalGroup(
+            pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContenidoLayout.createSequentialGroup()
+                .addGap(368, 368, 368)
+                .addComponent(lblEslogan))
+            .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(pnlContenidoLayout.createSequentialGroup()
+                .addGap(237, 237, 237)
+                .addComponent(lblSubtitulo))
+            .addComponent(pnlTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        pnlContenidoLayout.setVerticalGroup(
+            pnlContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContenidoLayout.createSequentialGroup()
+                .addComponent(lblEslogan)
+                .addGap(0, 0, 0)
+                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(lblSubtitulo)
+                .addGap(0, 0, 0)
+                .addComponent(pnlTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(50, 289, 323, 289);
+        pnlMain.add(pnlContenido, gridBagConstraints);
+
+        pnlRoot.add(pnlMain, java.awt.BorderLayout.CENTER);
+
+        add(pnlRoot, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEmpezar;
+    private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JButton btnTarjetaIniciarSesion;
+    private javax.swing.JLabel lblDescripcionMisViajes;
+    private javax.swing.JLabel lblDescripcionNuevoViaje;
+    private javax.swing.JLabel lblEslogan;
+    private javax.swing.JLabel lblEyebrowMisViajes;
+    private javax.swing.JLabel lblEyebrowNuevoViaje;
+    private javax.swing.JLabel lblIconoMisViajes;
+    private javax.swing.JLabel lblIconoNuevoViaje;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblNombreApp;
+    private javax.swing.JLabel lblSubtitulo;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblTituloMisViajes;
+    private javax.swing.JLabel lblTituloNuevoViaje;
+    private javax.swing.JPanel pnlContenido;
+    private javax.swing.JPanel pnlEspacioMisViajes;
+    private javax.swing.JPanel pnlEspacioNuevoViaje;
+    private javax.swing.JPanel pnlHeader;
+    private javax.swing.JPanel pnlLogo;
+    private javax.swing.JPanel pnlMain;
+    private javax.swing.JPanel pnlRoot;
+    private javax.swing.JPanel pnlTarjetaMisViajes;
+    private javax.swing.JPanel pnlTarjetaNuevoViaje;
+    private javax.swing.JPanel pnlTarjetas;
+    private javax.swing.JPanel pnlTextoMisViajes;
+    private javax.swing.JPanel pnlTextoNuevoViaje;
+    private javax.swing.JPanel pnlUsuario;
     // End of variables declaration//GEN-END:variables
 }

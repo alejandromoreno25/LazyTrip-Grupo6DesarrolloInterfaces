@@ -134,12 +134,12 @@ public class VistaInicioSesion extends javax.swing.JPanel {
         pwdContrasena.setMaximumSize(new java.awt.Dimension(328, 41));
         pnlFormulario.add(pwdContrasena);
 
-        pnlBotonLogin.setOpaque(false);
-        pnlBotonLogin.setAlignmentX(0.0F);
         pnlBotonLogin.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 0, 0, 0));
-        pnlBotonLogin.setMinimumSize(new java.awt.Dimension(328, 65));
-        pnlBotonLogin.setPreferredSize(new java.awt.Dimension(328, 65));
+        pnlBotonLogin.setAlignmentX(0.0F);
         pnlBotonLogin.setMaximumSize(new java.awt.Dimension(328, 65));
+        pnlBotonLogin.setMinimumSize(new java.awt.Dimension(328, 65));
+        pnlBotonLogin.setOpaque(false);
+        pnlBotonLogin.setPreferredSize(new java.awt.Dimension(328, 65));
         pnlBotonLogin.setLayout(new java.awt.BorderLayout());
 
         btnIniciarSesion.setBackground(new java.awt.Color(40, 96, 127));
