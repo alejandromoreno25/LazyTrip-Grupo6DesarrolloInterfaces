@@ -17,3 +17,12 @@
 | Joaquin Torrubia Oria | 100% |
 | Víctor Pérez Martínez | 65% |
 | Lucas Moreno | 100%|
+
+## SPRINT 3
+| Nombre del Integrante | Nota Final (%) |
+| :--- | :---: |
+| Alejandro Moreno Luna |85%|
+| Antonio Muñoz Herrera | - |
+| Joaquin Torrubia Oria | -|
+| Víctor Pérez Martínez | - |
+| Lucas Moreno |-|
