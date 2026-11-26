@@ -1,185 +1,95 @@
-# Componentes de Selección de Fecha y Hora para Itinerarios de Viaje
+# 1. Componentes de Selección de Fecha y Hora para Itinerarios de Viaje (T-3.1.1 / T-3.2.1)
 
-Para dotar a la aplicación de gestión de itinerarios de viaje de una interfaz intuitiva y profesional en Java Swing, se han integrado y adaptado dos librerías externas especializadas en la selección temporal: **JCalendar** para la gestión de fechas y **Java Swing TimePicker** (junto con su dependencia **TimingFramework**) para la selección de horas.
+Para dotar a la aplicación de gestión de itinerarios de viaje (**Lazy Trip**) de una interfaz intuitiva y profesional en Java Swing, se han integrado y adaptado dos librerías externas especializadas en la selección temporal: **JCalendar** para la gestión de fechas y **Java Swing TimePicker** (junto con su dependencia **TimingFramework**) para la selección de horas.
 
 A continuación, se detalla la arquitectura interna, las clases principales y el funcionamiento técnico de cada uno de los componentes integrados en el proyecto.
 
----
 
-## 1. Componente de Selección de Fecha (`JCalendar`)
+## 1.1. Componente de Selección de Fecha (JCalendar)
 
-El componente encargado de la selección de fechas proviene del repositorio oficial de Kai Toedter (`https://github.com/toedter/jcalendar`). Esta librería sigue la especificación **JavaBeans**, lo que facilita su integración visual y programática en entornos de desarrollo Swing[cite: 1].
+El componente encargado de la selección de fechas proviene del repositorio oficial de Kai Toedter (https://github.com/toedter/jcalendar). Esta librería sigue la especificación JavaBeans, lo que facilita su integración visual y programática en entornos de desarrollo Swing.
 
-### Estructura y Clases Principales
-
-El paquete `com.toedter.calendar` organiza el selector en una jerarquía modular de componentes visuales y lógicos[cite: 1]:
-
-* **`JDateChooser` (`com.toedter.calendar.JDateChooser`):** Es el componente principal utilizado en los formularios del itinerario. Combina un campo de texto editable (`IDateEditor`) con un botón desplegable (`JButton`) que abre un menú emergente (`JPopupMenu`) conteniendo el calendario completo[cite: 1].
-* **`JCalendar` (`com.toedter.calendar.JCalendar`):** Representa el panel completo del calendario, integrando en su interior la selección de día, mes y año, además de botones opcionales de acción rápida (*Hoy* y *Sin fecha*)[cite: 1].
-* **`JDayChooser` (`com.toedter.calendar.JDayChooser`):** Gestiona la cuadrícula de días del mes, permitiendo la navegación mediante teclado o ratón, el resaltado de domingos y días festivos, y la validación visual de fechas[cite: 1].
-* **`JMonthChooser` y `JYearChooser`:** Componentes dedicados a la selección del mes (mediante un `JComboBox` o `JSpinner`) y del año (basado en `JSpinField`), sincronizados automáticamente con `JDayChooser` mediante eventos `PropertyChangeListener`[cite: 1].
-* **`JTextFieldDateEditor` y `JSpinnerDateEditor`:** Implementaciones de la interfaz `IDateEditor` que gestionan el formato de entrada (`SimpleDateFormat`), las máscaras de texto (`MaskFormatter`) y la validación en tiempo real de la fecha escrita por el usuario[cite: 1].
-
-### Características Aplicadas al Proyecto
-
-* **Validación de Rangos (`DateUtil` y `MinMaxDateEvaluator`):** Permite restringir las fechas seleccionables (`setSelectableDateRange`, `setMinSelectableDate`, `setMaxSelectableDate`), evitando que el usuario programe etapas del viaje en fechas pasadas o incoherentes con el itinerario general[cite: 1].
-* **Internacionalización (`JLocaleChooser` y `UTF8ResourceBundle`):** Soporte nativo para múltiples configuraciones regionales (`Locale`), adaptando automáticamente los nombres de los meses, los días de la semana y las etiquetas de los botones al español (`es_ES`)[cite: 1].
-* **Evaluadores Personalizados (`IDateEvaluator`):** Interfaz que permite marcar visualmente fechas especiales (por ejemplo, días de salida, llegada o festivos en destino) con colores y *tooltips* personalizados[cite: 1].
-
----
-
-## 2. Componente de Selección de Hora (`Swing TimePicker`)
-
-Para la elección precisa de las horas de salida, llegada o actividades del itinerario, se ha incorporado el componente desarrollado por DJ-Raven (`https://github.com/DJ-Raven/java-swing-timepicker`). Este componente ofrece un selector de reloj analógico interactivo de estilo *Material Design*[cite: 2].
 
 ### Arquitectura y Clases Principales
 
-El componente se estructura bajo el paquete `com.raven.swing` y un sistema de eventos en `com.raven.event`[cite: 2]:
+El paquete `com.toedter.calendar` organiza el selector en una jerarquía modular de componentes visuales y lógicos:
 
-* **`TimePicker` (`com.raven.swing.TimePicker`):** Es el contenedor principal del selector. Incluye una cabecera (`panelHeader`) que muestra la hora y los minutos seleccionados, un interruptor para alternar entre formato de **12 horas (AM/PM)** y **24 horas** (`jCB24hour`), y botones de confirmación (`cmdOK`) y cancelación (`cmdCancel`). Puede vincularse directamente a un `JTextField` (`setDisplayText`) o mostrarse como ventana emergente (`showPopup`)[cite: 2].
-* **`TimeComponent` (`com.raven.swing.TimeComponent`):** Es el núcleo gráfico del reloj. Dibuja de forma personalizada mediante `Graphics2D` (con suavizado *antialiasing*) la esfera del reloj, la distribución trigonométrica de las horas y minutos, y la manecilla indicadora. Gestiona la interacción mediante `MouseAdapter` y `MouseMotionAdapter`, permitiendo tanto el clic directo como el arrastre fluido de la manecilla[cite: 2].
-* **`TimePickerButton`, `TimePickerLabel` y `TimePickerMenu`:** Componentes Swing personalizados que dotan al reloj de estética moderna, incluyendo efectos visuales de pulsación (*ripple effect*) en los botones y un menú emergente limpio (`JPopupMenu`)[cite: 2].
+* **JDateChooser (`com.toedter.calendar.JDateChooser`):** Es el componente principal utilizado en los formularios del itinerario. Combina un campo de texto editable (`IDateEditor`) con un botón desplegable (`JButton`) que abre un menú emergente (`JPopupMenu`) conteniendo el calendario completo.
+* **JCalendar (`com.toedter.calendar.JCalendar`):** Representa el panel completo del calendario, integrando en su interior la selección de día, mes y año, además de botones opcionales de acción rápida (*Hoy* y *Sin fecha*).
+* **JDayChooser (`com.toedter.calendar.JDayChooser`):** Gestiona la cuadrícula de días del mes, permitiendo la navegación mediante teclado o ratón, el resaltado de domingos y días festivos, y la validación visual de fechas.
+* **JMonthChooser y JYearChooser:** Componentes dedicados a la selección del mes (mediante un `JComboBox` o `JSpinner`) y del año (basado en `JSpinField`), sincronizados automáticamente con `JDayChooser` mediante eventos `PropertyChangeListener`.
+* **JTextFieldDateEditor y JSpinnerDateEditor:** Implementaciones de la interfaz `IDateEditor` que gestionan el formato de entrada (`SimpleDateFormat`), las máscaras de texto (`MaskFormatter`) y la validación en tiempo real de la fecha escrita por el usuario.
+
+
+### Características Aplicadas al Proyecto
+
+* **Validación de Rangos (`DateUtil` y `MinMaxDateEvaluator`):** Permite restringir las fechas seleccionables (`setSelectableDateRange`, `setMinSelectableDate`, `setMaxSelectableDate`), evitando que el usuario programe etapas del viaje en fechas pasadas o incoherentes con el itinerario general.
+* **Internacionalización (`JLocaleChooser` y `UTF8ResourceBundle`):** Soporte nativo para múltiples configuraciones regionales (`Locale`), adaptando automáticamente los nombres de los meses, los días de la semana y las etiquetas de los botones al español (`es_ES`).
+* **Evaluadores Personalizados (`IDateEvaluator`):** Interfaz que permite marcar visualmente fechas especiales (por ejemplo, días de salida, llegada o festivos en destino) con colores y *tooltips* personalizados.
+
+
+## 1.2. Componente de Selección de Hora (Swing TimePicker)
+
+Para la elección precisa de las horas de salida, llegada o actividades del itinerario, se ha incorporado el componente desarrollado por DJ-Raven (https://github.com/DJ-Raven/java-swing-timepicker). Este componente ofrece un selector de reloj analógico interactivo de estilo *Material Design*.
+
+
+### Arquitectura y Clases Principales
+
+El componente se estructura bajo el paquete `com.raven.swing` y un sistema de eventos en `com.raven.event`:
+
+* **TimePicker (`com.raven.swing.TimePicker`):** Es el contenedor principal del selector. Incluye una cabecera (`panelHeader`) que muestra la hora y los minutos seleccionados, un interruptor para alternar entre formato de 12 horas (AM/PM) y 24 horas (`jCB24hour`), y botones de confirmación (`cmdOK`) y cancelación (`cmdCancel`). Puede vincularse directamente a un `JTextField` (`setDisplayText`) o mostrarse como ventana emergente (`showPopup`).
+* **TimeComponent (`com.raven.swing.TimeComponent`):** Es el núcleo gráfico del reloj. Dibuja de forma personalizada mediante `Graphics2D` (con suavizado *antialiasing*) la esfera del reloj, la distribución trigonométrica de las horas y minutos, y la manecilla indicadora. Gestiona la interacción mediante `MouseAdapter` y `MouseMotionAdapter`, permitiendo tanto el clic directo como el arrastre fluido de la manecilla.
+* **TimePickerButton, TimePickerLabel y TimePickerMenu:** Componentes Swing personalizados que dotan al reloj de estética moderna, incluyendo efectos visuales de pulsación (*ripple effect*) en los botones y un menú emergente limpio (`JPopupMenu`).
+
 
 ### Gestión de Eventos e Interpolación
 
 * **Sistema de Eventos (`com.raven.event`):**
-  * `EventTimeSelected`: Notifica en tiempo real (`hourSelected`, `minuteSelected`) cuando el usuario selecciona una hora o minuto en la esfera, realizando la transición automática de selección de hora a minutos (`changeToMinute`)[cite: 2].
-  * `EventTimeChange`: Gestiona el cambio de estado entre la vista de horas y la vista de minutos (`timeChange`)[cite: 2].
-  * `EventTimePicker`: Emite el evento final (`timeSelected`) cuando el usuario confirma la hora elegida[cite: 2].
-* **Dependencia de Animación (`TimingFramework-0.55.jar`):** El reloj utiliza la librería `org.jdesktop.animation.timing` (`Animator` y `TimingTargetAdapter`) para interpolar el movimiento de la manecilla del reloj y las ondas de clic en los botones, logrando transiciones suaves y fluidas en la interfaz de usuario[cite: 2, 3].
-
----
-
-## 3. Resumen de Integración en el Itinerario
-
-| Característica | Selector de Fecha (`JCalendar`) | Selector de Hora (`TimePicker`) |
-| :--- | :--- | :--- |
-| **Paquete base** | `com.toedter.calendar`[cite: 1] | `com.raven.swing`[cite: 2] |
-| **Clase principal** | `JDateChooser` / `JCalendar`[cite: 1] | `TimePicker` / `TimeComponent`[cite: 2] |
-| **Tipo de dato devuelto** | `java.util.Date` / `java.util.Calendar`[cite: 1] | `String` formateado (`HH:mm` / `hh:mm aa`) o `java.util.Date`[cite: 2] |
-| **Dependencias externas** | Ninguna (Java Swing estándar)[cite: 1] | `TimingFramework-0.55.jar`[cite: 2, 3] |
-| **Uso en el proyecto** | Selección de fechas de inicio, fin y etapas del viaje | Selección de horarios de vuelos, reservas y actividades |
+  * **EventTimeSelected:** Notifica en tiempo real (`hourSelected`, `minuteSelected`) cuando el usuario selecciona una hora o minuto en la esfera, realizando la transición automática de selección de hora a minutos (`changeToMinute`).
+  * **EventTimeChange:** Gestiona el cambio de estado entre la vista de horas y la vista de minutos (`timeChange`).
+  * **EventTimePicker:** Emite el evento final (`timeSelected`) cuando el usuario confirma la hora elegida.
+* **Dependencia de Animación (`TimingFramework-0.55.jar`):** El reloj utiliza la librería `org.jdesktop.animation.timing` (`Animator` y `TimingTargetAdapter`) para interpolar el movimiento de la manecilla del reloj y las ondas de clic en los botones, logrando transiciones suaves y fluidas en la interfaz de usuario.
 
 
-Se ha desarrollado un índice para llevar a cabo el plan de validación y pruebas:
+## 1.3. Resumen de Integración en el Itinerario
 
-## Estructura del Plan de Pruebas
+| Componente | Paquete Base | Clase Principal | Tipo de Dato Devuelto | Dependencias Externas | Uso en el Proyecto |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Selector de Fecha (JCalendar)** | `com.toedter.calendar` | `JDateChooser` / `JCalendar` | `java.util.Date` / `java.util.Calendar` | Ninguna (Java Swing estándar) | Selección de fechas de inicio, fin y etapas del viaje |
+| **Selector de Hora (TimePicker)** | `com.raven.swing` | `TimePicker` / `TimeComponent` | `String` formateado (`HH:mm` / `hh:mm aa`) o `java.util.Date` | `TimingFramework-0.55.jar` | Selección de horarios de vuelos, reservas y actividades |
 
-1. **Introducción y Estrategia (Enfoque TDD)**
-   * Explicación breve de por qué se diseñan las pruebas antes de tener el código final, basándose en las maquetas y los requisitos de las 8 pantallas de LazyTrip.
-2. **Herramientas de Automatización**
-   * **JUnit 5:** Qué es y cómo se usará para comprobar los cambios de estado internos (variables en memoria, sesión de usuario, validaciones de fechas y presupuesto).
-   * **TestFX (o AssertJ-Swing):** Qué es y cómo se usará para simular acciones reales del usuario en pantalla (clics, escritura, movimiento de barras) y comprobar los elementos gráficos.
-3. **Tabla de Casos de Prueba (Diseño Funcional y Gráfico)**
-   * Lista estructurada (ID, Pantalla, Acción del usuario, Datos de entrada y Resultado esperado) cubriendo los puntos clave:
-     * Bloqueo de *"Mis viajes"* sin iniciar sesión.
-     * Validación de fechas (ida y vuelta) y número de viajeros.
-     * Actualización en tiempo real del presupuesto (*slider*) y selección de hotel.
-     * Separación de actividades y fotos al cambiar entre los botones de días (`DÍA 1`, `DÍA 2`...).
-     * Opciones de guardado según si el usuario está registrado (Perfil) o no (PDF).
-4. **Scripts Automatizados (Código de Prueba)**
-   * **4.1. Script de Estado Interno (JUnit):** Código Java con métodos `@Test` y aserciones (`assertEquals`, `assertTrue`, `assertFalse`) para validar la lógica interna.
-   * **4.2. Script de Interfaz Gráfica (TestFX):** Código Java simulando la interacción con botones, campos de texto y contenedores visuales (`clickOn`, `write`, `verifyThat`).
-5. **Criterios de Validación y Estado de Ejecución**
-   * Condiciones mínimas para dar por superadas las pruebas (ej. 100 % de éxito en validaciones críticas) y una pequeña tabla de control indicando su estado actual (Pendiente de integración con el código fuente).
 
----
 
-## 1. Introducción a los Casos de Prueba
+# 2. Plan de Validación, Calidad y Empaquetado de Componentes Propios (T-3.3.1 / T-3.4.1)
 
-Para comenzar con el plan de validación, se ha realizado una investigación acerca de la metodología más adecuada para esta parte. Por ello, se seguirá la metodología **TDD** [1], estrategia que consiste en redactar los casos de prueba y definir los criterios de sus resultados antes de implementar el código fuente [1].
+En el marco del *Sprint 3: Modularidad y Componentes Propios* del proyecto **LazyTrip**, el objetivo técnico es desarrollar controles visuales personalizados, encapsulados y reutilizables (`CampoCalendario` y `CampoReloj`) que sustituyan a los componentes estándar de Swing. Para garantizar la fiabilidad del software antes de integrarlo en las pantallas definitivas de la aplicación, se ha adoptado la metodología **TDD (Test-Driven Development o Desarrollo Guiado por Pruebas)** [1].
 
-## 2. Herramientas de Automatización
+El enfoque TDD consiste en invertir el ciclo tradicional de programación: antes de escribir el código funcional de cada componente, se redactan las pruebas unitarias que definen su comportamiento esperado (fase *Red*), se implementa el código mínimo necesario para superar dichas pruebas (fase *Green*) y, finalmente, se optimiza y limpia la estructura interna manteniendo todas las verificaciones en verde (fase *Refactor*) [1]. Gracias a esta metodología, bajo el rol de **QA Tester**, se ha construido una estrategia integral de aseguramiento de la calidad apoyada en **JUnit 5 (JUnit Jupiter)** [2] y automatización de interfaz gráfica mediante `java.awt.Robot` [3], culminando con la preparación del entorno para su distribución en `.jar` y documentación técnica Javadoc [4].
 
-Para ejecutar la estrategia de pruebas desde **LazyTrip**, se basarán en la combinación de las dos siguientes herramientas para la validación tanto de la lógica interna como de la respuesta de la interfaz:
 
-* **JUnit 5:** Es el estándar de referencia para el desarrollo y ejecución de pruebas unitarias en Java. En este proyecto se utilizará para verificar los cambios de estado internos del sistema y sus métodos, asegurando que las reglas funcionen correctamente. Esto se comprobará mediante aserciones automáticas en las que se validará la lógica de los componentes de la aplicación [2].
-* **TestFX (o AssertJ-Swing):** Son librerías especializadas en la automatización de pruebas funcionales sobre interfaces gráficas en Java. Estas librerías se emplearán para simular el comportamiento real de un usuario frente a las 8 pantallas. Posteriormente, la herramienta verificará de forma automática que los elementos gráficos reaccionan según lo diseñado (apertura de diálogos modales, actualización de etiquetas en pantalla o visibilidad de fotografías según el día seleccionado) [3][4].
+## 2.1. Diseño del Plan de Pruebas y Criterios de Validación
 
-# Documentación de los Casos de Prueba Funcionales para el Flujo de Planificación y Gestión de Viajes
+Al tratarse de componentes independientes pensados para empaquetarse en una librería reutilizable y emplearse en distintos contextos del formulario de viajes (fecha y hora de salida y de llegada), el diseño de las pruebas bajo TDD se ha estructurado en dos niveles complementarios:
 
-| ID | Pantalla | Escenario y Precondición | Acción y Datos de Entrada | Resultado Esperado (UI y Estado Interno) |
-| :--- | :--- | :--- | :--- | :--- |
-| **CP-01** | P1: Inicio y Acceso | Acceder al historial sin estar con la sesión iniciada. | Pulsar el botón **Mis viajes** en la pantalla principal. | Se bloquea la navegación hacia P6 y se despliega la ventana modal `LoginDialog` solicitando credenciales. |
-| **CP-02** | P1: Inicio y Acceso | Inicio de flujo de planificación de itinerario. | Pulsar el contenedor/botón principal **Nuevo viaje**. | Se instancia un nuevo objeto limpio en memoria y la vista transiciona a P2. |
-| **CP-03** | P2: Destino y Fechas | No validación de la fecha (fecha de vuelta anterior a la de ida). | Destino: `"Madrid"`<br>Llegada: `20/07/2026`<br>Salida: `15/07/2026`<br>Pulsar **Continuar**. | El controlador rechaza la transición, mantiene P2 activa y muestra un mensaje visual de error en el selector de fechas. |
-| **CP-04** | P2: Destino y Fechas | Validación de límite en el número de viajeros (rango permitido: 1 a 10). | Introducir `0` o `12` en el selector de viajeros y pulsar **Continuar**. | Impide el avance a P3 y notifica que el número de viajeros debe situarse entre 1 y 10 personas. |
-| **CP-05** | P3: Presupuesto y Estilo | Actualización reactiva en tiempo real del presupuesto por persona. | Desplazar la barra deslizante hasta el valor elegido (ej. `600`). | La variable interna se actualiza a `600` y la etiqueta superior muestra `"600 €"` al instante. |
-| **CP-06** | P3: Presupuesto y Estilo | Selección de categoría temática para filtrar sugerencias. | Pulsar el botón/etiqueta elegido. | El componente cambia su estilo visual a estado activo/seleccionado y guarda el filtro en `ViajeDTO`. |
-| **CP-07** | P4: Alojamiento | Sincronización entre listado izquierdo y panel derecho de detalle. | Hacer clic sobre el primer hotel disponible en la lista izquierda. | El panel derecho se refresca con el nombre, valoración y enlace externo de reserva del hotel seleccionado. |
-| **CP-08** | P4: Alojamiento | Retorno rápido para modificar parámetros iniciales sin perder estado. | Pulsar el botón **Cambiar destino y fechas**. | La aplicación regresa directamente a P2 manteniendo precargados los datos de ciudad, fechas y viajeros anteriores. |
-| **CP-09** | P5: Itinerario | Incorporación de actividades sugeridas y ordenación cronológica. | Pulsar **Añadir** en una actividad de las `12:00` y otra de las `09:30`. | Ambas actividades se insertan en la agenda central ordenadas por hora (`09:30` primero) y se dibujan sus marcadores en el mapa. |
-| **CP-10** | P5: Itinerario | Pestañas por día y aislamiento de agendas. | Con actividades en **DÍA 1**, pulsar el botón selector **DÍA 2**. | La vista central se limpia para mostrar la agenda del Día 2 sin borrar ni mezclar las actividades del Día 1. |
-| **CP-11** | P5: Itinerario | Seleccionar la opción de descargar PDF y la de guardar en tu historial. | Evaluar barra inferior con `isAutenticado = false` y luego con `isAutenticado = true`. | Como invitado solo habilita **Guardar en PDF**; como usuario registrado habilita **Guardar en perfil** (persistiendo en P6). |
-| **CP-12** | P6: Mis Viajes | Acceso a un viaje guardado en mis viajes. | Hacer clic sobre la tarjeta de un viaje almacenado en la lista. | Se carga el objeto completo del viaje seleccionado y la aplicación navega hacia la vista de resumen en P7. |
-| **CP-13** | P7: Resumen del Viaje | Resumen por días y navegación hacia galería multimedia. | Comprobar tarjetas informativas y pulsar el botón **Fotos** del menú. | Las etiquetas muestran fechas, hotel y presupuesto exactos del viaje y se abre la Pantalla 8 (P8). |
-| **CP-14** | P8: Subida de Fotos | Aislamiento de galería fotográfica entre diferentes jornadas del viaje. | Cargar 2 imágenes en **DÍA 1** y posteriormente pulsar el botón **DÍA 2**. | Las miniaturas del Día 1 dejan de renderizarse en pantalla, mostrando únicamente las del Día 2 hasta volver a pulsar Día 1. |
+* **Validación de Estado Interno (JUnit 5):** Comprueba que el modelo encapsulado de cada componente inicializa sus valores por defecto en `null`, aplica las reglas de formateo (`dd/MM/yyyy` y `HH:mm`) y responde correctamente ante actualizaciones programáticas o limpieza de datos [2].
+* **Validación de Interacción Gráfica (`java.awt.Robot`):** La clase `java.awt.Robot` forma parte del paquete nativo AWT de Java y sirve para generar eventos de entrada del sistema a bajo nivel (movimientos reales del puntero, pulsaciones de botones del ratón y teclas) con el fin de automatizar pruebas sobre interfaces gráficas de usuario [3]. En este plan, se utiliza para simular la interacción humana real sobre Swing y verificar la apertura de los menús emergentes (`JPopupMenu`), la respuesta visual de los botones vectoriales y la manipulación directa de los selectores internos (`JCalendar` y `TimePicker`).
 
----
+Los objetivos concretos de verificación se agrupan en cuatro pilares:
 
-# Plan de Validación y Pruebas de Componentes Propios
+1. **Integridad de inicialización:** Garantizar que, al instanciar `CampoCalendario` o `CampoReloj`, sus ventanas emergentes permanecen ocultas y sus atributos internos son `null`.
+2. **Sincronización Vista-Modelo:** Verificar que cualquier selección realizada en el calendario o en la esfera analógica se refleja de inmediato en el campo de texto izquierdo (`txtFecha` o `txtHora`) con el formato esperado.
+3. **Interacción analógica y discreta en el reloj:** Validar tanto la selección de horas y minutos en múltiplos de 5 como el arrastre continuo de la aguja sobre la esfera en modo 24 horas.
+4. **Encapsulación y aislamiento:** Confirmar que ambos controles funcionan de forma autónoma sin dependencias externas de base de datos ni acoplamiento a otras vistas.
 
-## 1. Introducción y Propósito del Diseño de Pruebas
 
-En el marco del **Sprint 3: Modularidad y Componentes Propios** del proyecto **LazyTrip**, el objetivo técnico principal del equipo es desarrollar controles visuales personalizados, encapsulados y reutilizables que sustituyan a los componentes estándar de la paleta de Java. Para garantizar la calidad del software antes de integrar estas piezas en las pantallas definitivas de la aplicación, se ha diseñado una batería de pruebas siguiendo la metodología **TDD (*Test-Driven Development*)** y los criterios de calidad del rol de *QA Tester*.
+## 2.2. Ejecución de Pruebas Unitarias y de Integración
 
-### ¿Para qué sirve este plan y por qué lo hemos estructurado así?
+Para automatizar la ejecución en NetBeans (entorno Ant), se integró el motor `junit-platform-console-standalone-1.10.2.jar` en el *Test Classpath* del proyecto y se configuró el objetivo `-do-test-run` en `build.xml` para lanzar `ConsoleLauncher` y generar los informes XML en `build/test/results/` [2].
 
-1. **Aislamiento y Encapsulación (Pruebas Unitarias antes que de Sistema):**
-   Al tratarse de componentes independientes (diseñados para empaquetarse en un fichero `.jar` reutilizable), no deben depender de una base de datos ni del resto de pantallas de LazyTrip para funcionar. Por ello, se han dividido las pruebas en niveles complementarios:
-   * **Validación de Estado Interno (JUnit):** Comprueba que el "cerebro" del componente inicializa sus valores por defecto y aplica las reglas de negocio sin fallos.
-2. **Reutilización en Múltiples Contextos (Ida y Vuelta del Viaje):**
-   Tanto el selector de fechas como el reloj analógico se utilizarán en distintas casillas del formulario (fecha/hora de salida y fecha/hora de llegada). Validar cada componente de forma aislada garantiza que, al instanciarlos varias veces en la misma pantalla, cada control mantendrá su propio estado de forma íntegra.
-3. **Independencia de Implementación (Enfoque Agnóstico):**
-   El diseño de los casos de prueba se centra en el comportamiento observable y en los tipos de datos encapsulados, evitando acoplarse a nombres internos de variables privadas. Esto permite ejecutar las pruebas de forma inmediata en cuanto los componentes estén codificados y detectar errores tempranos antes de la integración final.
+La batería funcional se implementó en el paquete `main.test` mediante las suites `CalendarioEstadoTest` y `RelojEstadoTest`. En ellas se combinan aserciones de JUnit 5 con el control de eventos nativos de `java.awt.Robot`, permitiendo calcular las coordenadas exactas en pantalla de cada componente, desplazar el cursor automáticamente y ejecutar clics o arrastres reales sin intervención manual [3].
 
----
 
-## 2. ¿Qué queremos probar exactamente?
-
-Los objetivos concretos de verificación se agrupan en cuatro pilares funcionales:
-
-* **Integridad de inicialización:** Asegurar que, al instanciar cualquiera de los dos controles, sus contenedores emergentes (*popups*) permanecen cerrados y sus valores por defecto son limpios y coherentes.
-* **Sincronización Vista-Modelo:** Verificar que toda selección realizada gráficamente en el calendario desplegable o en la esfera del reloj se traduce de inmediato en el formato de texto esperado en la barra principal (`dd/MM/yyyy` o `HH:mm`) y en sus atributos internos.
-* **Prevención de errores de usuario:** Comprobar que el calendario bloquea o corrige rangos temporales incoherentes (como seleccionar una fecha de fin anterior a la fecha de inicio).
-* **Dualidad de interacción en el reloj:** Validar tanto la conmutación superior entre modos (`Horas` / `Minutos`) como los dos mecanismos de selección de minutos: selección rápida discreta (saltos de 5 en 5 mediante clic en marcas principales) y selección continua de precisión (arrastre libre de la aguja para minutos intermedios).
-
----
-
-## 3. Matriz de Casos de Prueba por Componente
-
-### 3.1. Componente A: Selector de Rango de Fechas
-
-**Descripción funcional:** Barra de texto izquierda acompañada de un icono de calendario a la derecha que despliega una cuadrícula emergente para seleccionar el inicio y fin del viaje.
-
-| ID | Escenario | Acción y Datos de Entrada | Resultado Esperado (Estado Interno y Visual) |
-| :--- | :--- | :--- | :--- |
-| **CA-01** | Inicialización por defecto | Instanciar el componente sin interacción previa. | La barra de texto izquierda aparece vacía (o con *placeholder*), el desplegable está oculto y las fechas internas son `null`. |
-| **CA-02** | Apertura del calendario | Hacer clic en el icono de calendario situado a la derecha de la barra. | Se despliega el contenedor emergente con la cuadrícula de días del mes. |
-| **CA-03** | Selección de rango válido | Clic en fecha de inicio (`10/08/2026`) y fecha de fin (`15/08/2026`). | La línea de texto izquierda se rellena automáticamente con `"10/08/2026 - 15/08/2026"` y ambos atributos internos quedan guardados. |
-| **CA-04** | Validación de rango invertido | Seleccionar `20/08/2026` como inicio y luego clicar `12/08/2026` como fin. | El componente impide que la fecha final sea anterior a la inicial (bloquea el rango o reinicia la fecha de inicio). |
-| **CA-05** | Cierre automático al completar rango | Completar la selección de las dos fechas (inicio y fin). | El desplegable se oculta automáticamente dejando visible la barra de texto con el rango seleccionado. |
-
-### 3.2. Componente B: Selector de Hora con Reloj Analógico
-
-**Descripción funcional:** Ventana emergente con cabecera interactiva de Horas/Minutos y esfera analógica que permite seleccionar múltiplos de 5 mediante clic o minutos exactos mediante el arrastre de la aguja.
-
-| ID | Escenario | Acción y Datos de Entrada | Resultado Esperado (Estado Interno y Visual) |
-| :--- | :--- | :--- | :--- |
-| **CB-01** | Inicialización por defecto | Instanciar el componente selector de hora. | El *popup* del reloj está cerrado, la cabecera muestra la hora inicial (ej. `00:00`) y la esfera activa por defecto es la de Horas. |
-| **CB-02** | Apertura y conmutación de cabecera | Abrir el *popup*, clicar arriba en **Minutos** y luego volver a clicar en **Horas**. | Al clicar en Minutos cambia la vista a la esfera de minutos; al clicar en Horas vuelve a mostrar la esfera horaria. |
-| **CB-03** | Selección de horas en la esfera | En modo Horas, clicar sobre el número `14` (o posición horaria correspondiente). | La cabecera superior actualiza las horas a `14` y el estado interno guarda la hora seleccionada. |
-| **CB-04** | Selección rápida de minutos (de 5 en 5) | En modo Minutos, clicar sobre las marcas principales (`1`→`05`, `3`→`15`, `6`→`30`). | El componente calcula el múltiplo ($\text{posición} \times 5$), actualiza la cabecera a `:05`, `:15` o `:30` y guarda el valor. |
-| **CB-05** | Selección de minuto intermedio por arrastre | En modo Minutos, arrastrar la aguja manualmente hasta un punto intermedio (ej. minuto `18`). | La aguja sigue el ángulo del ratón, la cabecera muestra `:18` y la variable interna almacena el minuto exacto (`18`). |
-| **CB-06** | Volcado final de hora completa | Confirmar selección de hora (`14`) y minutos (`18`). | El campo principal del componente muestra `"14:18"` para llegada/salida del viaje. |
-
-## 3.2. Ejecución de Pruebas Unitarias y de Integración (Tarea #41)
-
-Para automatizar la ejecución en **NetBeans** (entorno Ant), se integró el motor `junit-platform-console-standalone-1.10.2.jar` en el *Test Classpath* del proyecto y se configuró el objetivo `-do-test-run` en `build.xml` para lanzar `ConsoleLauncher` y generar los informes XML en `build/test/results/` [2].
-
-La batería funcional se implementó en el paquete `main.test` mediante las suites `CalendarioEstadoTest` y `RelojEstadoTest`. En ellas se combinan aserciones de **JUnit 5** con el control de eventos nativos de `java.awt.Robot`, permitiendo calcular las coordenadas exactas en pantalla de cada componente, desplazar el cursor automáticamente y ejecutar clics o arrastres reales sin intervención manual [3]:
-
-### Matriz de pruebas funcionales de `CampoCalendario` (`CalendarioEstadoTest`)
+### Matriz de Pruebas Funcionales de CampoCalendario (`CalendarioEstadoTest`)
 
 | ID | Escenario | Acción y Datos de Entrada | Resultado Esperado y Verificado |
 | :--- | :--- | :--- | :--- |
@@ -188,23 +98,174 @@ La batería funcional se implementó en el paquete `main.test` mediante las suit
 | **CA-03** | Asignación y formateo | Asignar la fecha `2026-11-25` mediante `setFecha()`. | El estado interno almacena `LocalDate.of(2026, 11, 25)` y la barra muestra `"25/11/2026"`. |
 | **CA-04** | Limpieza de estado | Invocar `setFecha(null)` tras haber seleccionado una fecha previa. | El atributo interno vuelve a `null` y el campo de texto queda vacío (`""`). |
 
-### Matriz de pruebas funcionales de `CampoReloj` (`RelojEstadoTest`)
+
+### Matriz de Pruebas Funcionales de CampoReloj (`RelojEstadoTest`)
 
 | ID | Escenario | Acción y Datos de Entrada | Resultado Esperado y Verificado |
 | :--- | :--- | :--- | :--- |
 | **CB-01** | Inicialización por defecto | Instanciar `CampoReloj` sin interacción previa. | `getHora()` devuelve `null`, `getTextoMostrado()` está vacío (`""`) y `TimePicker.isShowing()` es `false`. |
-| **CB-02** | Apertura del reloj analógico | `Robot` pulsa sobre el botón vectorial derecho del reloj. | Se despliega el *popup* emergente mostrando el selector analógico `TimePicker` en modo 24 horas. |
+| **CB-02** | Apertura del reloj analógico | `Robot` pulsa sobre el botón vectorial derecho del reloj. | Se despliega el popup emergente mostrando el selector analógico `TimePicker` en modo 24 horas. |
 | **CB-03** | Selección en múltiplos de 5 | Establecer horas con minutos discretos (`14:05`, `14:15`, `14:30`). | El componente sincroniza el `TimePicker` y formatea la salida en `"14:05"`, `"14:15"` y `"14:30"`. |
 | **CB-04** | Arrastre en esfera y volcado | `Robot` abre el selector, realiza un arrastre sobre la esfera y confirma minuto exacto (`14:18`). | La aguja responde al desplazamiento, `getHora().getMinute()` registra `18` y el campo muestra `"14:18"`. |
 
-## 3.4. Configuración del Entorno para Exportación a `.jar` y Javadoc (Tarea #43)
+La ejecución completa de ambas suites concluyó con **8 de 8 pruebas superadas (`BUILD SUCCESSFUL`)**, validando tanto la lógica interna como el comportamiento gráfico en pantalla.
 
-Finalmente, se dejó configurado el entorno de desarrollo en **NetBeans** y el script de construcción **Ant** para facilitar la distribución de los componentes como librería independiente y su documentación técnica asociada [4], [5]:
 
-* **Empaquetado en archivo `.jar`:** En las propiedades del proyecto (*Build → Packaging*), se activaron las opciones *Build JAR after Compiling* y *Copy Dependent Libraries*. Al ejecutar *Clean and Build* (`clean jar`), Ant genera automáticamente el artefacto `dist/PruebaCOmponentes.jar` junto con las dependencias necesarias (`jcalendar-1.4.jar`, `swing-time-picker.jar` y `TimingFramework-0.55.jar`) en `dist/lib/`, permitiendo reutilizar los componentes en la aplicación principal de **LazyTrip** [5].
-* **Generación de documentación técnica (Javadoc):** En *Build → Documenting*, se habilitaron las etiquetas `@author` y `@version`, y se configuraron los parámetros adicionales `-encoding UTF-8 -charset UTF-8 -docencoding UTF-8` para garantizar la correcta codificación de caracteres en español. Mediante la acción *Generate Javadoc*, el entorno genera en `dist/javadoc/` la documentación HTML completa de todas las clases, constructores y métodos públicos del paquete `main` [4].
+## 2.3. Pruebas de Seguridad Básica y Uso de Recursos
 
-La ejecución completa de ambas suites concluyó con **8 de 8 pruebas superadas** (`BUILD SUCCESSFUL`), validando tanto la lógica interna como el comportamiento gráfico en pantalla.
+Con el fin de asegurar que la integración de los componentes en pantallas con múltiples formularios no degrade el rendimiento ni introduzca vectores de fallo por manipulación de entrada, se desarrolló la suite `SeguridadyMemoriaTest` bajo JUnit 5:
 
-<img width="712" height="640" alt="image" src="https://github.com/user-attachments/assets/d72679bb-1e35-4bf2-a76b-63e7ec16972a" />
+| ID | Área Evaluada | Procedimiento de Prueba | Criterio de Aceptación Verificado |
+| :--- | :--- | :--- | :--- |
+| **SM-01** | Consumo de memoria y fugas | Instanciar y descartar en bucle 200 objetos `CampoCalendario` y 200 `CampoReloj` (400 controles en total), invocar `System.gc()` y medir el delta de memoria heap mediante `Runtime`. | El incremento neto de memoria residual se mantiene por debajo del umbral definido (`<64 MB`) y el tiempo total de creación es inferior a `3 s`. |
+| **SM-02** | Prevención de inyección de entrada | Inspeccionar los componentes `JTextField` internos (`txtFecha` y `txtHora`) de ambos controles. | Ambos campos tienen `isEditable() == false`, bloqueando la introducción libre por teclado de cadenas malformadas o intentos de inyección. |
+| **SM-03** | Robustez ante nulos y límites | Probar `setFecha(null)`, `setHora(null)`, años bisiestos (`29/02/2028`) y horas límite (`00:00` y `23:59`). | Ninguna llamada lanza `NullPointerException` ni errores de parseo; los límites se formatean con exactitud. |
+
+Con la incorporación de `SeguridadyMemoriaTest`, la batería global alcanzó **11 de 11 casos ejecutados con éxito**, acreditando la estabilidad de recursos y la protección frente a entradas no válidas.
+
+
+## 2.4. Configuración del Entorno para Exportación a `.jar` y Javadoc (Tarea #43 / T-3.4.1)
+
+Finalmente, se dejó configurado el entorno de desarrollo en NetBeans y el script de construcción Ant para facilitar la distribución de los componentes como librería independiente y su documentación técnica asociada [4], [5]:
+
+* **Empaquetado en archivo `.jar`:** En las propiedades del proyecto (*Build → Packaging*), se activaron las opciones *Build JAR after Compiling* y *Copy Dependent Libraries*. Al ejecutar *Clean and Build* (`clean jar`), Ant genera automáticamente el artefacto `dist/LazyTripComponentes.jar` junto con las dependencias necesarias (`jcalendar-1.4.jar`, `swing-time-picker.jar` y `TimingFramework-0.55.jar`) en `dist/lib/`, permitiendo reutilizar los componentes en la aplicación principal de LazyTrip [5].
+* **Generación de documentación técnica (Javadoc):** Se ha documentado el código fuente de `CampoCalendario` y `CampoReloj` con comentarios Javadoc (`/** ... */`) y etiquetas estándar (`@author`, `@version`, `@since`, `@param`, `@return`, `@throws`, `@deprecated`, `@see`) [6]. En *Build → Documenting*, se habilitaron las etiquetas `@author` y `@version`, y se configuraron los parámetros adicionales `-encoding UTF-8 -charset UTF-8 -docencoding UTF-8` para garantizar la correcta codificación de caracteres en español. Mediante la acción *Generate Javadoc*, el entorno genera en `dist/javadoc/` la documentación HTML completa de todas las clases, constructores y métodos públicos del paquete [4].
+
+
+
+# 3. Manual Técnico, Guía de Instalación y Despliegue (Rol Release Manager - HU-3.4 / T-3.4.1 / T-3.5.1)
+
+Bajo la responsabilidad del rol de **Release Manager**, se establece la documentación técnica, el procedimiento de instalación de la librería, la selección de herramientas para empaquetado comercial e instaladores y la aplicación de firmas digitales al software.
+
+
+## 3.1. Manual Técnico de los Componentes LazyTrip
+
+### Resumen de Componentes Desarrollados
+
+| Componente | Función | Dónde se usa en LazyTrip |
+| :--- | :--- | :--- |
+| **`CampoCalendario`** | Seleccionar una fecha en un calendario emergente. | Fecha de llegada y fecha de salida del itinerario. |
+| **`CampoReloj`** | Seleccionar una hora en un reloj analógico emergente. | Hora de llegada y hora de salida del itinerario. |
+
+
+### Tecnologías y Herramientas Utilizadas
+
+| Herramienta | Uso en el Proyecto |
+| :--- | :--- |
+| **Java SE (JDK 25)** | Lenguaje y plataforma de desarrollo. Incluye las herramientas `javac`, `jar` y `javadoc`. |
+| **Swing** | Librería gráfica de la que heredan los componentes (`JComponent`, `JPanel`). |
+| **`java.time` (`LocalDate`, `LocalTime`)** | Tipos de datos modernos para gestionar la fecha y la hora seleccionadas. |
+| **JCalendar 1.4 (`com.toedter.calendar`)** | Librería externa que aporta el calendario emergente. |
+| **TimePicker (`com.raven.swing`)** | Librería externa (`swing-time-picker.jar`) que aporta el reloj analógico emergente. |
+| **Timing Framework 0.55** | Librería (`TimingFramework-0.55.jar`) de animaciones que necesita `TimePicker`. |
+| **Apache NetBeans** | Entorno de desarrollo (IDE) y editor visual de interfaces. |
+| **Apache Ant** | Sistema de construcción que utiliza NetBeans en los proyectos *Java with Ant*. |
+| **JUnit 5** | Framework de pruebas unitarias para validar los componentes de forma aislada. |
+| **Javadoc** | Herramienta del JDK que genera la documentación HTML a partir de los comentarios del código. |
+| **Herramienta `jar`** | Herramienta del JDK que empaqueta las clases compiladas y el manifiesto (`META-INF/MANIFEST.MF`) en un único fichero `.jar` [7]. |
+
+
+### Herencia y Requisitos de JavaBean
+
+Ambos controles extienden de `javax.swing.JPanel` y cumplen las especificaciones estándar de JavaBeans para ser integrados en la paleta visual del IDE:
+
+| Requisito JavaBean | Cómo se cumple en el proyecto |
+| :--- | :--- |
+| **Clase pública** | `public class CampoCalendario` / `public class CampoReloj` |
+| **Constructor público sin parámetros** | `public CampoCalendario()` / `public CampoReloj()` |
+| **Propiedades privadas con getters/setters** | Atributos encapsulados `fecha` (`getFecha` / `setFecha`) y `hora` (`getHora` / `setHora`) |
+| **Serialización** | Implementa `Serializable` por herencia directa de `JPanel` |
+
+
+### Estructura de Documentación Javadoc
+
+Todo el código público está documentado mediante bloques Javadoc (`/** ... */`) empleando las etiquetas principales estándar [6]:
+
+* **`@author`:** Indica el autor o autores de la clase.
+* **`@version`:** Especifica la versión actual de la clase o API.
+* **`@since`:** Indica desde qué versión está disponible la clase o método.
+* **`@param`:** Describe cada parámetro que recibe un método (nombre y función).
+* **`@return`:** Explica el valor que devuelve un método.
+* **`@throws` / `@exception`:** Documenta las excepciones que un método puede lanzar.
+* **`@deprecated`:** Señala que un método o clase ya no se recomienda y debe dejar de usarse, indicando alternativas.
+* **`@see`:** Añade un enlace o referencia a otra clase, método o página relacionada.
+
+
+### Estructura del Empaquetado y Dependencias
+
+El componente se distribuye como un fichero `.jar`, un formato basado en ZIP que reúne las clases compiladas y el fichero de manifiesto `META-INF/MANIFEST.MF` con los metadatos del paquete [7]. Dado que las librerías de terceros no se incrustan dentro del `.jar` principal, deben acompañarlo en la carpeta `lib/`:
+
+| Fichero / Directorio | Ubicación | Contenido |
+| :--- | :--- | :--- |
+| `LazyTripComponentes.jar` | `dist/` | Clases compiladas de `CampoCalendario` y `CampoReloj`. |
+| `jcalendar-1.4.jar` | `dist/lib/` | Librería externa JCalendar. |
+| `swing-time-picker.jar` | `dist/lib/` | Librería externa TimePicker. |
+| `TimingFramework-0.55.jar` | `dist/lib/` | Librería de animaciones requerida por TimePicker. |
+| Documentación HTML | `dist/javadoc/` | API completa del componente generada con Javadoc (`index.html`). |
+
+
+## 3.2. Guía de Instalación y Generación de la Librería
+
+### Requisitos Previos
+
+| Elemento | Requisito |
+| :--- | :--- |
+| **JDK** | Java Development Kit (JDK 25). |
+| **IDE** | Apache NetBeans (configurado con proyectos *Java with Ant*). |
+| **Librerías externas** | `jcalendar-1.4.jar`, `swing-time-picker.jar` y `TimingFramework-0.55.jar`. |
+
+
+### Paso 1: Preparar el Proyecto de la Librería
+
+1. En NetBeans, acceder a **File → New Project → Java with Ant → Java Class Library** y asignarle el nombre `LazyTripComponentes`.
+2. Dentro de *Source Packages*, crear el paquete `com.lazytrip.componentes` y alojar en él las clases `CampoCalendario.java` y `CampoReloj.java`.
+3. Crear una carpeta `lib/` en la raíz del proyecto y copiar dentro los archivos `jcalendar-1.4.jar`, `swing-time-picker.jar` y `TimingFramework-0.55.jar`.
+4. Hacer clic derecho sobre **Libraries → Add JAR/Folder** y seleccionar los tres archivos `.jar` anteriores.
+
+
+### Paso 2: Compilar y Generar el Fichero `.jar`
+
+1. Hacer clic derecho sobre el proyecto `LazyTripComponentes` y seleccionar **Clean and Build** (atajo `Mayús + F11`).
+2. NetBeans ejecutará Ant y generará el fichero compilado en `LazyTripComponentes/dist/LazyTripComponentes.jar`, copiando automáticamente las dependencias a `dist/lib/`.
+
+
+### Paso 3: Generar la Documentación Javadoc
+
+1. Hacer clic derecho sobre el proyecto `LazyTripComponentes` y seleccionar **Generate Javadoc**.
+2. La documentación HTML se creará en `dist/javadoc/`. Para visualizarla, abrir el archivo `index.html` en cualquier navegador web.
+
+
+### Paso 4: Integración en el Proyecto Principal (T-3.5.1)
+
+1. En el proyecto principal de **LazyTrip**, hacer clic derecho sobre **Libraries → Add JAR/Folder** e importar `LazyTripComponentes.jar` junto con los tres `.jar` de la carpeta `dist/lib/`.
+2. Arrastrar o instanciar `CampoCalendario` y `CampoReloj` dentro de las vistas del formulario de gestión de itinerarios.
+
+
+## 3.3. Generación de Instaladores Profesionales
+
+Para empaquetar y distribuir la aplicación comercial resultante en entornos Windows mediante asistentes de instalación profesionales, se han evaluado dos herramientas principales:
+
+* **Inno Setup (Opción Seleccionada):** Es el asistente de instalación gratuito más popular para Windows. Utiliza archivos de script sencillos (`.iss`), permite un alto grado de personalización visual de la interfaz del instalador y empaqueta toda la aplicación y sus dependencias en un único archivo ejecutable (`setup.exe`).
+* **NSIS (Nullsoft Scriptable Install System):** Sistema de código abierto muy ligero y flexible, ideal para generar instaladores de tamaño mínimo cuando se requiere un control exhaustivo mediante scripts detallados.
+
+
+## 3.4. Aplicación de Firmas Digitales al Software
+
+La **firma digital** es un mecanismo criptográfico que actúa como equivalente electrónico avanzado de una firma manuscrita, garantizando la autenticidad del autor y la integridad del ejecutable frente a manipulaciones.
+
+
+### Obtención del Certificado Digital
+
+* **Ámbito institucional / nacional (España):** Puede solicitarse a través de la **Fábrica Nacional de Moneda y Timbre (FNMT)** o mediante el sistema **Cl@ve**.
+* **Distribución comercial de software (Code Signing):** Para evitar advertencias de seguridad (*Windows SmartScreen*), se recomienda adquirir un certificado de firma de código emitido por una Autoridad de Certificación (CA) de confianza como **DigiCert**, o emplear servicios integrados en la nube como **Azure Trusted Signing**.
+
+
+### Procedimiento de Firma con `SignTool.exe`
+
+1. **Solicitar el certificado:** Obtener el archivo de certificado `.pfx` (o configurar el almacén en Azure Trusted Signing) a través de una Autoridad de Certificación de confianza.
+2. **Instalar el Windows SDK:** Descargar e instalar el SDK de Windows para disponer de la herramienta oficial de línea de comandos `SignTool.exe`.
+3. **Firmar el ejecutable:** Abrir la consola de comandos de Windows (CMD o PowerShell) y ejecutar el siguiente comando sustituyendo las rutas y la contraseña correspondientes:
+
+```cmd
+signtool.exe sign /f "ruta/de/tu-certificado.pfx" /p "tu-contraseña" /fd SHA256 /tr "[http://timestamp.digicert.com](http://timestamp.digicert.com)" /td SHA256 "ruta/de/tu-programa.exe"
 
