@@ -9,6 +9,8 @@ A continuación, se detalla la arquitectura interna, las clases principales y el
 
 El componente encargado de la selección de fechas proviene del repositorio oficial de Kai Toedter (https://github.com/toedter/jcalendar). Esta librería sigue la especificación JavaBeans, lo que facilita su integración visual y programática en entornos de desarrollo Swing.
 
+<img width="237" height="175" alt="image" src="https://github.com/user-attachments/assets/1f0ce962-663a-4032-8060-b7babbcbfbd1" />
+
 
 ### Arquitectura y Clases Principales
 
@@ -31,6 +33,8 @@ El paquete `com.toedter.calendar` organiza el selector en una jerarquía modular
 ## 1.2. Componente de Selección de Hora (Swing TimePicker)
 
 Para la elección precisa de las horas de salida, llegada o actividades del itinerario, se ha incorporado el componente desarrollado por DJ-Raven (https://github.com/DJ-Raven/java-swing-timepicker). Este componente ofrece un selector de reloj analógico interactivo de estilo *Material Design*.
+
+<img width="300" height="415" alt="image" src="https://github.com/user-attachments/assets/c1e2fe76-8405-4eb7-bdb2-2d625ff8763a" />
 
 
 ### Arquitectura y Clases Principales
@@ -114,6 +118,9 @@ La ejecución completa de ambas suites concluyó con **8 de 8 pruebas superadas 
 ## 2.3. Pruebas de Seguridad Básica y Uso de Recursos
 
 Con el fin de asegurar que la integración de los componentes en pantallas con múltiples formularios no degrade el rendimiento ni introduzca vectores de fallo por manipulación de entrada, se desarrolló la suite `SeguridadyMemoriaTest` bajo JUnit 5:
+
+<img width="712" height="640" alt="image" src="https://github.com/user-attachments/assets/8bbe24a4-13f0-49f8-8bda-9631a32c1083" />
+
 
 | ID | Área Evaluada | Procedimiento de Prueba | Criterio de Aceptación Verificado |
 | :--- | :--- | :--- | :--- |
@@ -268,4 +275,30 @@ La **firma digital** es un mecanismo criptográfico que actúa como equivalente 
 
 ```cmd
 signtool.exe sign /f "ruta/de/tu-certificado.pfx" /p "tu-contraseña" /fd SHA256 /tr "[http://timestamp.digicert.com](http://timestamp.digicert.com)" /td SHA256 "ruta/de/tu-programa.exe"
+
+```
+# 4. Bibliografía
+
+* **[1]** K. Beck, *Test-Driven Development: By Example*. Boston, MA, USA: Addison-Wesley Professional, 2002. [En línea]. Disponible en: https://www.oreilly.com/library/view/test-driven-development/0321146530/
+
+
+* **[2]** JUnit Team, *JUnit 5 User Guide (Version 5.10.2)*, 2024. [En línea]. Disponible en: https://junit.org/junit5/docs/current/user-guide/
+
+
+* **[3]** Oracle, *Java Platform, Standard Edition 17 API Specification: Class Robot (java.awt.Robot)*, 2024. [En línea]. Disponible en: https://docs.oracle.com/en/java/javase/17/docs/api/java.desktop/java/awt/Robot.html
+
+
+* **[4]** Oracle, *The Javadoc Tool Documentation & Technical Guide*, 2024. [En línea]. Disponible en: https://docs.oracle.com/en/java/javase/17/javadoc/javadoc.html
+
+
+* **[5]** The Apache Software Foundation, *Apache Ant Manual: Jar Task & Build Configuration*, 2024. [En línea]. Disponible en: https://ant.apache.org/manual/Tasks/jar.html
+
+
+* **[6]** Aprender a Programar, *Documentar proyectos Java con Javadoc: comentarios, símbolos y tags (`@deprecated`, `@param`, etc.)*, 2024. [En línea]. Disponible en: https://www.aprenderaprogramar.com/index.php?option=com_content&view=article&id=646:documentar-proyectos-java-con-javadoc-comentarios-simbolos-tags-deprecated-param-etc-cu00680b&catid=68&Itemid=188
+
+
+* **[7]** Oracle, *The Java Tutorials: Packaging Programs in JAR Files*, 2024. [En línea]. Disponible en: https://docs.oracle.com/javase/tutorial/deployment/jar/
+
+
+* **[8]** Alura Cursos, *Duda sobre exportación de fichero `.jar` en NetBeans*, Foro de la comunidad. [En línea]. Disponible en: https://app.aluracursos.com/forum/topico-duda-sobre-jar-netbeans-219312
 
