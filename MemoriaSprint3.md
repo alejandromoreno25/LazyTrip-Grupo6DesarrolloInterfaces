@@ -277,7 +277,19 @@ La **firma digital** es un mecanismo criptográfico que actúa como equivalente 
 signtool.exe sign /f "ruta/de/tu-certificado.pfx" /p "tu-contraseña" /fd SHA256 /tr "[http://timestamp.digicert.com](http://timestamp.digicert.com)" /td SHA256 "ruta/de/tu-programa.exe"
 
 ```
-# 4. Bibliografía
+# 4. Interfaces 
+<img width="1472" height="825" alt="image" src="https://github.com/user-attachments/assets/84055d7f-87b4-4bc3-819a-9c129f5f613b" />
+<img width="537" height="607" alt="image" src="https://github.com/user-attachments/assets/db14456d-e86f-4928-b698-848448459a68" />
+<img width="1396" height="940" alt="image" src="https://github.com/user-attachments/assets/87f17d9b-5905-4afd-813b-14d5c917c204" />
+<img width="1342" height="948" alt="image" src="https://github.com/user-attachments/assets/49fccf4a-16a7-4d4f-806f-88eabf60b7ab" />
+<img width="1437" height="980" alt="image" src="https://github.com/user-attachments/assets/f68036bb-be69-428b-8d4e-791c0b5554c4" />
+<img width="1917" height="866" alt="image" src="https://github.com/user-attachments/assets/c00002b6-c771-42e9-a7e4-7f2f2d8b116b" />
+<img width="1917" height="907" alt="image" src="https://github.com/user-attachments/assets/5f0a5d62-e757-4720-8066-e81ec6b6e793" />
+<img width="1470" height="952" alt="image" src="https://github.com/user-attachments/assets/8eec278e-ab9f-40ca-a0fb-d3fc2f2e8f62" />
+<img width="1485" height="875" alt="image" src="https://github.com/user-attachments/assets/243875b2-e423-4f31-aee1-8e9fd58f8ddf" />
+<img width="1510" height="907" alt="image" src="https://github.com/user-attachments/assets/87aebb5c-9570-40fb-bcfc-95142d4a63df" />
+
+# 5. Bibliografía
 
 * **[1]** K. Beck, *Test-Driven Development: By Example*. Boston, MA, USA: Addison-Wesley Professional, 2002. [En línea]. Disponible en: https://www.oreilly.com/library/view/test-driven-development/0321146530/
 
